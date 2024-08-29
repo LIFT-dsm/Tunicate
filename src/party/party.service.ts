@@ -15,7 +15,7 @@ export class PartyService {
         Object.assign(party, {
             name: dto.party_name,
             destination: dto.destination,
-            start_date: dto.start_date,
+            startate: dto.start_date,
             end_date: dto.end_date
         });
         
