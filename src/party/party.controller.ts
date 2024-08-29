@@ -9,7 +9,7 @@ export class PartyController {
     ) {}
 
     @Post()
-    create(@Body() dto: CreatePartyDto) {
-        this.service.create(dto)
+    async create(@Body() dto: CreatePartyDto) {
+        await this.service.create(dto)
     }
 }
