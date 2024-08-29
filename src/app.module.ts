@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PartyModule } from './party/party.module';
 
 @Module({
   imports: [
@@ -13,11 +14,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: process.env.DB_NAME,
       entities: [__dirname + './**/entities/*.ts'],
       timezone: 'Asia/Seoul',
-      synchronize: false,
+      synchronize: true,
       logging: false,
       autoLoadEntities: true,
     }),
     UserModule,
+    PartyModule,
   ],
   controllers: [],
   providers: [],
