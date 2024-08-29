@@ -19,6 +19,6 @@ export class PartyService {
             endDate: dto.endDate
         });
         
-        return this.repository.save(party)
+        await this.repository.save(party)
     }
 }
