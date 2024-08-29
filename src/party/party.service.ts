@@ -13,10 +13,10 @@ export class PartyService {
         const party: Party = new Party()
 
         Object.assign(party, {
-            name: dto.partyName,
+            name: dto.party_name,
             destination: dto.destination,
-            startDate: dto.startDate,
-            endDate: dto.endDate
+            startDate: dto.start_date,
+            endDate: dto.end_date
         });
         
         await this.repository.save(party)

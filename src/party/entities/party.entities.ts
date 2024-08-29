@@ -3,17 +3,17 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class Party {
     @PrimaryGeneratedColumn()
-    id: number
+    id!: number
 
     @Column()
-    name: string
+    name!: string
 
     @Column()
-    startDate: string
+    start_date!: string
 
     @Column()
-    endDate: string
+    end_date!: string
 
     @Column()
-    destination: string
+    destination!: string
 }
