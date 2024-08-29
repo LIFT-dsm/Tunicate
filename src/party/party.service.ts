@@ -10,14 +10,12 @@ export class PartyService {
     ) {}
 
     async create(dto: CreatePartyDto) {
-        const party: Party = new Party()
-
-        Object.assign(party, {
+        const party = {
             name: dto.party_name,
             destination: dto.destination,
-            startate: dto.start_date,
+            start_date: dto.start_date,
             end_date: dto.end_date
-        });
+        }
         
         await this.repository.save(party)
     }
