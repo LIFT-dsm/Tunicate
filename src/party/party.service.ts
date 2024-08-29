@@ -15,8 +15,8 @@ export class PartyService {
         Object.assign(party, {
             name: dto.party_name,
             destination: dto.destination,
-            startDate: dto.start_date,
-            endDate: dto.end_date
+            start_date: dto.start_date,
+            end_date: dto.end_date
         });
         
         await this.repository.save(party)
