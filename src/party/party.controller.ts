@@ -10,6 +10,6 @@ export class PartyController {
 
     @Post()
     create(@Body() dto: CreatePartyDto) {
-        return this.service.create(dto)
+        this.service.create(dto)
     }
 }
