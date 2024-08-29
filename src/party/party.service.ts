@@ -1,0 +1,24 @@
+import { Injectable } from "@nestjs/common";
+import { PartyRepositoryInterface } from "./repositories/party.repository.interface";
+import { CreatePartyDto } from "./dto/create-party.dto";
+import { Party } from "./entities/party.entities";
+
+@Injectable()
+export class PartyService {
+    constructor(
+        private readonly repository: PartyRepositoryInterface
+    ) {}
+
+    async create(dto: CreatePartyDto) {
+        const party: Party = new Party()
+
+        Object.assign(party, {
+            name: dto.partyName,
+            destination: dto.destination,
+            startDate: dto.startDate,
+            endDate: dto.endDate
+        });
+        
+        return this.repository.save(party)
+    }
+}
