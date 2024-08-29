@@ -2,13 +2,13 @@ import { IsString } from "class-validator";
 
 export class CreatePartyDto {
     @IsString()
-    readonly party_name: string;
+    readonly partyName: string;
 
     @IsString()
-    readonly start_date: string;
+    readonly startDate: string;
 
     @IsString()
-    readonly end_date: string;
+    readonly endDate: string;
 
     @IsString()
     readonly destination: string;

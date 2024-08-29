@@ -11,10 +11,10 @@ export class PartyService {
 
     async create(dto: CreatePartyDto) {
         const party = {
-            name: dto.party_name,
+            name: dto.partyName,
             destination: dto.destination,
-            start_date: dto.start_date,
-            end_date: dto.end_date
+            startDate: dto.startDate,
+            endDate: dto.endDate
         }
         
         await this.repository.save(party)

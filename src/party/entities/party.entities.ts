@@ -9,10 +9,10 @@ export class Party {
     name!: string
 
     @Column()
-    start_date!: string
+    startDate!: string
 
     @Column()
-    end_date!: string
+    endDate!: string
 
     @Column()
     destination!: string
