@@ -19,5 +19,5 @@ export abstract class PartyRepositoryInterface {
      * @param id 찾고 싶은 Party 고유키
      * @returns 찾은 경우 PartyEntity를 반환, 찾지 못한 경우 undefined 반환
      */
-    abstract findById(id: number): Promise<Party | undefined>
+    abstract findById(id: number): Promise<Party | null>
 }

@@ -15,7 +15,7 @@ export class PartyRepository implements PartyRepositoryInterface {
         await this.repository.save(entity);
     }
 
-    async findById(id: number): Promise<Party | undefined> {
+    async findById(id: number): Promise<Party | null> {
         return await this.repository.findOne({where: { id } });
     }
 }
