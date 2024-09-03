@@ -16,29 +16,33 @@ export class UserService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async createAcc(reqDto: CreateAccRequestDto) {
-    const { password, ...userdata } = reqDto;
+  async createAccount(reqDto: CreateAccRequestDto) {
+    const { password, ...userData } = reqDto;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    if (!(userdata.gender == 'MALE' || userdata.gender == 'FEMALE')) {
-      throw new BadRequestException('존재하지 않는 성별입니다.');
-    }
-
-    const thisUser = await this.userRepository.findOneUserByStudentId(userdata.studentId);
+.
+    const thisUser = await this.userRepository.findOneUserByStudentId(userData.studentId);
 
     if (thisUser) {
       throw new ConflictException('이미 해당 학번으로 등록된 유저가 있습니다.');
     }
 
+    ,
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     try {
       await this.userRepository.saveUser({
-        ...userdata,
+        ...userData,
         password: hashedPassword,
       });
     } catch (e) {
       this.logger.error(e);
       throw new InternalServerErrorException(e);
+    }
+  }
+
+  private  {
+    if (!(userData.gender == 'MALE' || userData.gender == 'FEMALE')) {
+      throw new BadRequestException('존재하지 않는 성별입니다.');
     }
   }
 }

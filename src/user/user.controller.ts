@@ -8,8 +8,6 @@ export class UserController {
 
   @Post('/signup')
   async createAcc(@Body() reqDto: CreateAccRequestDto) {
-    await this.userService.createAcc(reqDto);
-
-    return null;
+    await this.userService.createAccount(reqDto);
   }
 }
