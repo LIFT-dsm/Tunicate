@@ -1,4 +1,4 @@
-import { BadRequestException, CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { BadRequestException, CanActivate, ExecutionContext, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entities';
@@ -20,8 +20,11 @@ export class JwtAuthGuard implements CanActivate {
     if (!token.startsWith(process.env.JWT_PREFIX)) throw new BadRequestException('토큰형식 오류');
 
     const { id } = await this.jwt.decode(token.split(' ')[1]);
-    const user = await this.userEntity.findOne({ where: { id } });
+    const user = await this.userEntity.findOne({ where: { studentId: id } });
+    if (!user) throw new NotFoundException('존재하지 않는 유저');
 
-    return null;
+    req.body.user = user;
+
+    return true;
   }
 }
