@@ -5,17 +5,15 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entities';
-import { Repository } from 'typeorm';
 import { CreateAccRequestDto } from './dto/createAcc.request.dto';
+import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private userEntity: Repository<User>,
     private readonly logger: Logger,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async createAcc(reqDto: CreateAccRequestDto) {
@@ -27,16 +25,14 @@ export class UserService {
       throw new BadRequestException('존재하지 않는 성별입니다.');
     }
 
-    const thisUser = await this.userEntity.findOne({
-      where: { studentId: userdata.studentId },
-    });
+    const thisUser = await this.userRepository.findOneUserByStudentId(userdata.studentId);
 
     if (thisUser) {
       throw new ConflictException('이미 해당 학번으로 등록된 유저가 있습니다.');
     }
 
     try {
-      await this.userEntity.save({
+      await this.userRepository.saveUser({
         ...userdata,
         password: hashedPassword,
       });
