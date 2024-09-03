@@ -1,10 +1,10 @@
 import { Logger, Module } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserController } from './user.controller';
+import { UserService } from './services/user.service';
+import { UserAuthController } from './controllers/user.auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entities';
 import { JwtModule } from '@nestjs/jwt';
-import { UserRepository } from './user.repository';
+import { UserRepository } from './repository/user.repository';
 
 @Module({
   imports: [
@@ -20,7 +20,7 @@ import { UserRepository } from './user.repository';
     }),
   ],
   providers: [UserService, UserRepository, Logger],
-  controllers: [UserController],
+  controllers: [UserAuthController],
   exports: [UserService, UserRepository],
 })
 export class UserModule {}

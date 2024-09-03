@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entities';
+import { User } from '../entities/user.entities';
 import { Repository } from 'typeorm';
 
 export class UserRepository {
