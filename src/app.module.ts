@@ -14,7 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       entities: [__dirname + './**/entities/*.ts'],
       timezone: 'Asia/Seoul',
       synchronize: true,
-      logging: true,
+      logging: false,
       autoLoadEntities: true,
     }),
     UserModule,

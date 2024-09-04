@@ -30,5 +30,5 @@ export class User {
     length: 100,
     default: process.env.DEFAULT_PROFILE_URL,
   })
-  profile: string;
+  profile?: string;
 }
