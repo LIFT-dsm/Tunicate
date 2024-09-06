@@ -1,5 +1,5 @@
 import { IsNumber, IsString } from 'class-validator';
-import { Gender } from '../entities/user.entities';
+import { Gender } from '../../entities/user.entities';
 
 export class CreateAccRequestDto {
   @IsNumber()

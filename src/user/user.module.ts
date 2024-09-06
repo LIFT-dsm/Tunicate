@@ -1,26 +1,28 @@
 import { Logger, Module } from '@nestjs/common';
-import { UserService } from './services/user.service';
+import { CreateUserService } from './services/createUser.service';
 import { UserAuthController } from './controllers/user.auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entities';
 import { JwtModule } from '@nestjs/jwt';
 import { UserRepository } from './repository/user.repository';
+import { LoginService } from './services/login.service';
+import { Redis } from 'ioredis';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
     JwtModule.register({
-      secret: process.env.JWT_SECRET,
+      secret: process.env.ACCESS_JWT_SECRET,
       signOptions: {
-        expiresIn: '3h',
+        expiresIn: process.env.ACCESS_EXPIRE_TIME,
       },
       verifyOptions: {
         complete: false,
       },
     }),
   ],
-  providers: [UserService, UserRepository, Logger],
+  providers: [CreateUserService, LoginService, UserRepository, Redis, Logger],
   controllers: [UserAuthController],
-  exports: [UserService, UserRepository],
+  exports: [CreateUserService, UserRepository],
 })
 export class UserModule {}

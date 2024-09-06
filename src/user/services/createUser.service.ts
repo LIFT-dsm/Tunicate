@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { CreateAccRequestDto } from '../dto/createAcc.request.dto';
+import { CreateAccRequestDto } from '../dto/request/createAcc.request.dto';
 import { UserRepository } from '../repository/user.repository';
 import * as bcrypt from 'bcrypt';
 import { Gender } from '../entities/user.entities';
@@ -20,7 +20,7 @@ interface UserData {
 }
 
 @Injectable()
-export class UserService implements CreateUser {
+export class CreateUserService implements CreateUser {
   constructor(
     private readonly logger: Logger,
     private readonly userRepository: UserRepository,
