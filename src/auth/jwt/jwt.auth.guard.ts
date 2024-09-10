@@ -1,5 +1,6 @@
-import { BadRequestException, CanActivate, ExecutionContext, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, CanActivate, ExecutionContext, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Redis } from 'ioredis';
 import { UserRepository } from 'src/user/repository/user.repository';
 
 @Injectable()
@@ -7,22 +8,25 @@ export class JwtAuthGuard implements CanActivate {
   constructor(
     private readonly jwt: JwtService,
     private readonly userRepository: UserRepository,
+    private readonly redis: Redis,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     const token = this.extractToken(req);
-
     this.checkToken(token);
 
     const { id } = await this.extractId(token);
-    req.body.user = await this.findUser(id);
+    const user = await this.findUser(id);
+
+    req.body.user = user;
+    await this.existInRedis(user.studentId, token);
 
     return true;
   }
 
   private extractToken(req: Request) {
-    return req.headers['Authorization'];
+    return req.headers['authorization'];
   }
 
   private async extractId(token: string) {
@@ -41,5 +45,11 @@ export class JwtAuthGuard implements CanActivate {
     if (!user) throw new NotFoundException('존재하지 않는 유저');
 
     return user;
+  }
+
+  private async existInRedis(studentId: number, token: string) {
+    const redisToken = await this.redis.get(`${studentId}_access`);
+
+    if (redisToken != token.split(' ')[1]) throw new ForbiddenException('만료되거나 유효하지 않은 토큰입니다');
   }
 }
