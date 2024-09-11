@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserRepository } from './repository/user.repository';
 import { LoginService } from './services/login.service';
 import { Redis } from 'ioredis';
+import { ChangePasswordService } from './services/changePassword.service';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { Redis } from 'ioredis';
       },
     }),
   ],
-  providers: [CreateUserService, LoginService, UserRepository, Redis, Logger],
+  providers: [CreateUserService, LoginService, ChangePasswordService, UserRepository, Redis, Logger],
   controllers: [UserAuthController],
   exports: [CreateUserService, UserRepository],
 })

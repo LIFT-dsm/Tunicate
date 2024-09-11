@@ -12,4 +12,8 @@ export class UserRepository {
   async saveUser(user: User): Promise<void> {
     await this.userEntity.save(user);
   }
+
+  async updateUserPassword(newUserData: User): Promise<void> {
+    await this.userEntity.save(newUserData);
+  }
 }
