@@ -67,8 +67,8 @@ export class LoginService implements Login {
   // 만료시간 계산
   async calExpireTime() {
     const now = new Date().getTime();
-    const accessExpireIn = await this.dateFormat(new Date(now + Number(process.env.ACCESS_EXPIRE_TIME)));
-    const refreshExpireIn = await this.dateFormat(new Date(now + Number(process.env.REFRESH_EXPIRE_TIME)));
+    const accessExpireIn = await this.dateFormat(new Date(now + Number(process.env.ACCESS_EXPIRE_TIME) / 1000));
+    const refreshExpireIn = await this.dateFormat(new Date(now + Number(process.env.REFRESH_EXPIRE_TIME) / 1000));
 
     return { accessExpireIn, refreshExpireIn };
   }
