@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RedisModule } from '@songkeys/nestjs-redis';
 import { PartyModule } from './party/party.module';
 
 @Module({
@@ -17,6 +18,14 @@ import { PartyModule } from './party/party.module';
       synchronize: true,
       logging: false,
       autoLoadEntities: true,
+    }),
+    RedisModule.forRoot({
+      readyLog: true,
+      config: {
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
+        password: process.env.REDIS_PW,
+      },
     }),
     UserModule,
     PartyModule,
