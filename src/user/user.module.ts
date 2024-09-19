@@ -8,6 +8,8 @@ import { UserRepository } from './repository/user.repository';
 import { LoginService } from './services/login.service';
 import { Redis } from 'ioredis';
 import { UpdateUserService } from './services/updateUser.service';
+import { MakeTokenService } from './services/makeToken.service';
+import { RefreshService } from './services/refresh.service';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { UpdateUserService } from './services/updateUser.service';
       },
     }),
   ],
-  providers: [CreateUserService, LoginService, UpdateUserService, UserRepository, Redis, Logger],
+  providers: [MakeTokenService, CreateUserService, LoginService, UpdateUserService, UserRepository, RefreshService, Redis, Logger],
   controllers: [UserAuthController],
   exports: [CreateUserService, UserRepository],
 })
