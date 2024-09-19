@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserRepository } from './repository/user.repository';
 import { LoginService } from './services/login.service';
 import { Redis } from 'ioredis';
+import { UpdateUserService } from './services/updateUser.service';
 import { MakeTokenService } from './services/makeToken.service';
 import { RefreshService } from './services/refresh.service';
 
@@ -23,7 +24,7 @@ import { RefreshService } from './services/refresh.service';
       },
     }),
   ],
-  providers: [MakeTokenService, CreateUserService, LoginService, UserRepository, RefreshService, Redis, Logger],
+  providers: [MakeTokenService, CreateUserService, LoginService, UpdateUserService, UserRepository, RefreshService, Redis, Logger],
   controllers: [UserAuthController],
   exports: [CreateUserService, UserRepository],
 })

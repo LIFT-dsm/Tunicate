@@ -1,9 +1,11 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Patch, Post, UseGuards } from '@nestjs/common';
 import { CreateAccRequestDto } from '../dto/request/createAcc.request.dto';
-import { CreateUserService } from '../services/createUser.service';
 import { LoginRequstDto } from '../dto/request/login.request.dto';
-import { LoginService } from '../services/login.service';
+import { UpdateUserRequestDto } from '../dto/request/updateUser.request.dto';
 import { RefreshRequestDto } from '../dto/request/refresh.request.dto';
+import { CreateUserService } from '../services/createUser.service';
+import { LoginService } from '../services/login.service';
+import { UpdateUserService } from '../services/updateUser.service';
 import { RefreshService } from '../services/refresh.service';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.auth.guard';
 import { TokenType } from 'src/utils/decorators/tokenType.decorator';
@@ -13,6 +15,7 @@ export class UserAuthController {
   constructor(
     private readonly createUserService: CreateUserService,
     private readonly loginService: LoginService,
+    private readonly updateUserService: UpdateUserService,
     private readonly refreshService: RefreshService,
   ) {}
 
@@ -26,6 +29,12 @@ export class UserAuthController {
     const data = await this.loginService.login(reqDto);
 
     return { data };
+  }
+
+  @Patch('/info')
+  @UseGuards(JwtAuthGuard)
+  async updateUser(@Body() reqDto: UpdateUserRequestDto) {
+    await this.updateUserService.updateUser(reqDto);
   }
 
   @Post('/refresh')
