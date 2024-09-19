@@ -5,7 +5,7 @@ export class Party {
     @PrimaryGeneratedColumn()
     id?: number
 
-    @Column()
+    @Column({ length: 100 })
     name!: string
 
     @Column()
@@ -14,6 +14,11 @@ export class Party {
     @Column()
     endDate!: string
 
-    @Column()
+    @Column({ length: 255 })
     destination!: string
+
+    @Column({ length: 6, charset: 'ascii' })
+    code!: string
+
+    // TODO: user_id column 
 }
