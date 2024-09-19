@@ -9,6 +9,9 @@ import { LoginService } from './services/login.service';
 import { Redis } from 'ioredis';
 import { UserDataContoller } from './controllers/user.data.controller';
 import { GetUserDataService } from './services/getUserData.service';
+import { UpdateUserService } from './services/updateUser.service';
+import { MakeTokenService } from './services/makeToken.service';
+import { RefreshService } from './services/refresh.service';
 
 @Module({
   imports: [
@@ -23,7 +26,7 @@ import { GetUserDataService } from './services/getUserData.service';
       },
     }),
   ],
-  providers: [CreateUserService, LoginService, GetUserDataService, UserRepository, Redis, Logger],
+  providers: [MakeTokenService, CreateUserService, LoginService, GetUserDataService, UpdateUserService, UserRepository, RefreshService, Redis, Logger],
   controllers: [UserAuthController, UserDataContoller],
   exports: [CreateUserService, UserRepository],
 })
