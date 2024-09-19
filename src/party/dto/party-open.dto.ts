@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 
-export class CreatePartyDto {
+export class PartyOpenDto {
     @IsString()
     readonly partyName: string;
 
