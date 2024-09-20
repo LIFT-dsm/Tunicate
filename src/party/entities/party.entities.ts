@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/user/entities/user.entities";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Party {
@@ -20,5 +21,6 @@ export class Party {
     @Column({ length: 6, charset: 'ascii' })
     code!: string
 
-    // TODO: user_id column 
+    @ManyToOne(() => User, (user) => user.studentId)
+    leader!: User
 }
