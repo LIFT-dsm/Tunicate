@@ -1,6 +1,10 @@
-import { IsString } from "class-validator";
+import { IsObject, IsString } from "class-validator";
+import { User } from "src/user/entities/user.entities";
 
 export class PartyOpenDto {
+    @IsObject()
+    user: User;  
+
     @IsString()
     readonly partyName: string;
 
