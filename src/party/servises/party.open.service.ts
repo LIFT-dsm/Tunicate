@@ -19,6 +19,7 @@ export class PartyOpenService implements PartyOpenUseCase {
             startDate: dto.startDate,
             endDate: dto.endDate,
             code: this.generateRandomPartyCode(),
+            leader: dto.user 
         };
 
         await this.repository.save(party);
