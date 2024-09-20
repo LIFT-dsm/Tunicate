@@ -21,7 +21,7 @@ export class Party {
     @Column({ length: 6, charset: 'ascii' })
     code!: string
 
-    @ManyToOne(() => User, (user) => user.studentId, { onDelete: 'CASCADE' })
+    @ManyToOne(() => User, (user) => user.studentId, { cascade: true })
     @JoinColumn({ name: 'leader' })
     leader?: User
 }
