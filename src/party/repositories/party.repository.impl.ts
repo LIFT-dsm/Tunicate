@@ -23,8 +23,18 @@ export class PartyRepositoryImpl implements PartyRepository {
     }
 
     @Override()
+    async findByIdAndLeaderId(id: number, leaderId: number): Promise<Party | null> {
+        return await this.repository.findOne({where: { id: id , leader: { studentId: leaderId } }, relations: ['leader'] });
+    }
+
+    @Override()
     async deleteById(id: number) {
         await this.repository.delete({ id });
+    }
+
+    @Override()
+    async delete(entity: Party) {
+        await this.repository.remove(entity);
     }
 
     @Override()

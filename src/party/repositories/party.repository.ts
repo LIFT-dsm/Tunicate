@@ -20,11 +20,15 @@ export abstract class PartyRepository {
      */
     abstract findById(id: number): Promise<Party | null>
 
+    abstract findByIdAndLeaderId(id: number, leaderId: number): Promise<Party | null>
+
     /**
      * 
      * @param id 찾고 싶은 Party 고유키
      */
     abstract deleteById(id: number)
+    
+    abstract delete(entity: Party)
 
     /**
      * @param entity
