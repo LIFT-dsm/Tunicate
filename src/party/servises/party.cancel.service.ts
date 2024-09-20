@@ -14,10 +14,6 @@ export class PartyCancelService implements PartyCancelUseCase {
     @Override()
 async cancel(id: number, dto: PartyCancelDto) {
     const currentUser = dto.user;
-    if (!currentUser) {
-        throw new BadRequestException('유저를 식별하지 못했습니다.');
-    }
-
     const party = await this.repository.findById(id);
     if (!party) {
         throw new NotFoundException(`파티를 찾지 못했습니다.`);
