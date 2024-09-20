@@ -10,9 +10,15 @@ import { PartyCancelUseCase } from "./usecase/party.cancel.usecase";
 import { PartyCancelService } from "./servises/party.cancel.service";
 import { PartyUpdateUseCase } from "./usecase/party.update.usecase";
 import { PartyUpdateService } from "./servises/party.update.service";
+import { UserModule } from "src/user/user.module";
+import { JwtAuthGuard } from "src/auth/jwt/jwt.auth.guard";
+import { Redis } from "ioredis";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Party])],
+    imports: [
+        UserModule, 
+        TypeOrmModule.forFeature([Party]),
+    ],
     providers: [
         {
             provide: PartyOpenUseCase,
@@ -29,7 +35,9 @@ import { PartyUpdateService } from "./servises/party.update.service";
         {
             provide: PartyRepository,
             useClass: PartyRepositoryImpl
-        }
+        },
+        JwtAuthGuard,
+        Redis
     ],
     controllers: [PartyController],
 })
