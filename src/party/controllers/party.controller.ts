@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, HttpCode, HttpStatus, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import { PartyOpenUseCase } from "../usecase/party.open.usecase";
 import { PartyCancelUseCase } from "../usecase/party.cancel.usecase";
 import { PartyUpdateUseCase } from "../usecase/party.update.usecase";
 import { PartyOpenDto } from "../dto/party-open.dto";
 import { PartyUpdateDto } from "../dto/party-update.dto";
+import { JwtAuthGuard } from "src/auth/jwt/jwt.auth.guard";
+import { PartyCancelDto } from "../dto/party-cancel.dto";
 
 @Controller('party')
 export class PartyController {
@@ -14,18 +16,21 @@ export class PartyController {
     ) {}
 
     @Post()
+    @UseGuards(JwtAuthGuard)
     @HttpCode(HttpStatus.CREATED)
     async create(@Body() dto: PartyOpenDto) {
         await this.openUseCase.open(dto)
     }
 
     @Delete('/:id')
+    @UseGuards(JwtAuthGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
-    async cancel(@Param('id') id: number) {
-        await this.cancelUseCase.cancel(id)
+    async cancel(@Param('id') id: number, @Body() dto: PartyCancelDto) {
+        await this.cancelUseCase.cancel(id, dto)
     }
 
     @Patch('/:id')
+    @UseGuards(JwtAuthGuard)
     @HttpCode(HttpStatus.NO_CONTENT)
     async update(@Param('id') id: number, @Body() dto: PartyUpdateDto) {
         await this.updateUseCase.update(id, dto)
