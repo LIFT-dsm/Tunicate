@@ -19,7 +19,7 @@ export class PartyRepositoryImpl implements PartyRepository {
 
     @Override()
     async findById(id: number): Promise<Party | null> {
-        return await this.repository.findOne({where: { id } });
+        return await this.repository.findOne({where: { id }, relations: ['leader']});
     }
 
     @Override()
