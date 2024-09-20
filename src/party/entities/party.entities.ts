@@ -1,5 +1,5 @@
 import { User } from "src/user/entities/user.entities";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Party {
@@ -21,6 +21,7 @@ export class Party {
     @Column({ length: 6, charset: 'ascii' })
     code!: string
 
-    @ManyToOne(() => User, (user) => user.studentId)
-    leader!: User
+    @ManyToOne(() => User, (user) => user.studentId, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'leader' })
+    leader?: User
 }
