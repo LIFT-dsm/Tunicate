@@ -2,9 +2,10 @@ import { Override } from "src/utils/decorators/override.decorator";
 import { PartyRepository } from "../repositories/party.repository";
 import { PartyUpdateDto } from "../dto/party-update.dto";
 import { ForbiddenException, Injectable } from "@nestjs/common";
+import { PartyUpdateUseCase } from "../usecase/party.update.usecase";
 
 @Injectable()
-export class PartyUpdateService {
+export class PartyUpdateService implements PartyUpdateUseCase {
     constructor(
         private readonly repository: PartyRepository
     ) {
