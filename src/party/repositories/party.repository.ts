@@ -20,7 +20,11 @@ export abstract class PartyRepository {
      */
     abstract findById(id: number): Promise<Party | null>
 
+    abstract findByIdWithMembers(id: number): Promise<Party | null>
+
     abstract findByIdAndLeaderId(id: number, leaderId: number): Promise<Party | null>
+
+    abstract search(keyword: string): Promise<Party[]>
 
     /**
      * 

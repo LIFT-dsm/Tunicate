@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { Like, Or, Repository } from "typeorm";
 import { Party } from "../entities/party.entities"
 import { PartyRepository } from "./party.repository";
 import { Override } from "src/utils/decorators/override.decorator";
@@ -23,8 +23,22 @@ export class PartyRepositoryImpl implements PartyRepository {
     }
 
     @Override()
+    async findByIdWithMembers(id: number): Promise<Party | null> {
+        return await this.repository.findOne({where: { id }, relations: ['leader', 'members']});
+    }
+
+    @Override()
     async findByIdAndLeaderId(id: number, leaderId: number): Promise<Party | null> {
         return await this.repository.findOne({where: { id: id , leader: { studentId: leaderId } }, relations: ['leader'] });
+    }
+
+    @Override()
+    async search(keyword: string): Promise<Party[]> {
+        return await this.repository.find({ where: [
+            { name: Like(`%${keyword}%`) },
+            { destination: Like(`%${keyword}%`) },
+            { leader: { name: Like(`%${keyword}%`) } }
+        ] });
     }
 
     @Override()
