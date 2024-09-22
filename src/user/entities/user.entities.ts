@@ -1,5 +1,6 @@
 import { configDotenv } from 'dotenv';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Party } from 'src/party/entities/party.entities';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 configDotenv();
 
@@ -31,4 +32,7 @@ export class User {
     default: process.env.DEFAULT_PROFILE_URL,
   })
   profile?: string;
+
+  @ManyToMany(() => Party, (party) => party.members, { cascade: true })
+  parties?: Party[];
 }

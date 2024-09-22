@@ -1,5 +1,5 @@
 import { User } from "src/user/entities/user.entities";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Party {
@@ -24,4 +24,12 @@ export class Party {
     @ManyToOne(() => User, (user) => user.studentId, { cascade: true })
     @JoinColumn({ name: 'leader' })
     leader?: User
+
+    @ManyToMany(() => User, (user) => user.studentId, { cascade: true })
+    @JoinTable({ 
+        name: 'party_members',
+        joinColumns: [{ name: 'party_id'}, { referencedColumnName: 'id' }],
+        inverseJoinColumns: [{ name: 'member_id'}, {referencedColumnName: 'studentId' }]
+    })
+    members?: User[]
 }
