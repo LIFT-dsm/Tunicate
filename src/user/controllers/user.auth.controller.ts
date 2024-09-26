@@ -5,6 +5,9 @@ import { UpdateUserRequestDto } from '../dto/request/updateUser.request.dto';
 import { RefreshRequestDto } from '../dto/request/refresh.request.dto';
 import { CreateUserService } from '../services/createUser.service';
 import { LoginService } from '../services/login.service';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt.auth.guard';
+import { ChangePasswordRequestDto } from '../dto/request/changePassword.reqeust.dto';
+import { ChangePasswordService } from '../services/changePassword.service';
 import { UpdateUserService } from '../services/updateUser.service';
 import { RefreshService } from '../services/refresh.service';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt.auth.guard';
@@ -15,6 +18,7 @@ export class UserAuthController {
   constructor(
     private readonly createUserService: CreateUserService,
     private readonly loginService: LoginService,
+    private readonly changePasswordService: ChangePasswordService,
     private readonly updateUserService: UpdateUserService,
     private readonly refreshService: RefreshService,
   ) {}
@@ -31,6 +35,11 @@ export class UserAuthController {
     return { data };
   }
 
+  @Patch('/password')
+  @UseGuards(JwtAuthGuard)
+  async updatePassword(@Body() reqDto: ChangePasswordRequestDto) {
+    await this.changePasswordService.changePassword(reqDto);
+    
   @Patch('/info')
   @UseGuards(JwtAuthGuard)
   async updateUser(@Body() reqDto: UpdateUserRequestDto) {
