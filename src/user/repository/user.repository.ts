@@ -13,6 +13,10 @@ export class UserRepository {
     await this.userEntity.save(user);
   }
 
+  async deleteUser(user: User): Promise<void> {
+    await this.userEntity.delete(user);
+  }
+  
   async updateUserPassword(newUserData: User): Promise<void> {
     await this.userEntity.save(newUserData);
   }
