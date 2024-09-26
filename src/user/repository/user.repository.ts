@@ -16,4 +16,12 @@ export class UserRepository {
   async deleteUser(user: User): Promise<void> {
     await this.userEntity.delete(user);
   }
+  
+  async updateUserPassword(newUserData: User): Promise<void> {
+    await this.userEntity.save(newUserData);
+  }
+  
+  async updateUser(studentId: number, updateData): Promise<void> {
+    await this.userEntity.update({ studentId }, { ...updateData });
+  }
 }
