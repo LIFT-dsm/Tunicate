@@ -15,6 +15,8 @@ import { Redis } from "ioredis";
 import { JwtService } from "@nestjs/jwt";
 import { User } from "src/user/entities/user.entities";
 import { UserModule } from "src/user/user.module";
+import { PartyQueryUseCase } from "./usecase/party.query.usecase";
+import { PartyQueryService } from "./servises/party.query.service";
 
 @Module({
     imports: [
@@ -22,6 +24,10 @@ import { UserModule } from "src/user/user.module";
         UserModule,
     ],
     providers: [
+        {
+            provide: PartyQueryUseCase,
+            useClass: PartyQueryService
+        },
         {
             provide: PartyOpenUseCase,
             useClass: PartyOpenService
