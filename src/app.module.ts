@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RedisModule } from '@songkeys/nestjs-redis';
+import { PartyModule } from './party/party.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { RedisModule } from '@songkeys/nestjs-redis';
       },
     }),
     UserModule,
+    PartyModule,
   ],
   controllers: [],
   providers: [],
